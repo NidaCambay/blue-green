@@ -8,13 +8,13 @@ pipeline {
   environment {
     AWS_REGION = "us-east-1"
     CLUSTER_NAME = "bluegreen-cluster"
-    IMAGE_TAG = "hbayraktar/petclinic:${params.DEPLOY_ENV.toLowerCase()}"
+    IMAGE_TAG = "nidacambay/petclinic:${params.DEPLOY_ENV.toLowerCase()}"
   }
 
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', credentialsId: 'github-auth', url: 'https://github.com/hakanbayraktar/blue-green.git'
+        git branch: 'main', credentialsId: 'github-auth', url: 'https://github.com/NidaCambay/blue-green.git'
       }
     }
 
