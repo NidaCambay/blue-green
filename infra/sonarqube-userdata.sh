@@ -1,27 +1,27 @@
 #!/bin/bash
 set -e
 
-echo "📦 Updating system..."
+echo "Updating system..."
 apt update -y
 DEBIAN_FRONTEND=noninteractive apt upgrade -yq
 
-echo "☕ Installing Java 17..."
+echo "Installing Java 17..."
 apt install -y openjdk-17-jdk unzip wget gnupg2
 
-echo "✅ Java version:"
+echo "Java version:"
 java -version
 
-echo "⬇️ Downloading SonarQube..."
+echo "Downloading SonarQube..."
 cd /opt
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.3.0.82913.zip
 unzip sonarqube-10.3.0.82913.zip
 mv sonarqube-10.3.0.82913 sonarqube
 
-echo "👤 Creating sonar user..."
+echo "Creating sonar user..."
 useradd -r -s /bin/false sonar
 chown -R sonar:sonar /opt/sonarqube
 
-echo "🔧 Creating SonarQube systemd service..."
+echo "Creating SonarQube systemd service..."
 cat <<EOF > /etc/systemd/system/sonar.service
 [Unit]
 Description=SonarQube service
@@ -40,9 +40,9 @@ LimitNOFILE=65536
 WantedBy=multi-user.target
 EOF
 
-echo "🚀 Starting SonarQube service..."
+echo "Starting SonarQube service..."
 systemctl daemon-reexec
 systemctl enable sonar
 systemctl start sonar
 
-echo "✅ SonarQube setup completed!"
+echo "SonarQube setup completed!"
